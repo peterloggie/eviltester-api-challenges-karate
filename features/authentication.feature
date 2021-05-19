@@ -1,9 +1,8 @@
 Feature: Authentication Challenges
 
 Background:
-  * url 'http://apichallenges.herokuapp.com'
-  * def setup = callonce read('./shared/set-headers.feature')
-  * header X-Challenger = setup.token
+  * url baseURL
+  * header X-Challenger = config.challengerToken
   Given path 'secret/token'
 
 Scenario: POST /secret/token (401)

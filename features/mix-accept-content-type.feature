@@ -6,7 +6,7 @@ Background:
   Given path 'todos'
 
 Scenario: POST /todos XML to JSON
-  * configure headers = { 'Content-Type': 'application/xml', 'Accept': 'application/json', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Content-Type': 'application/xml', 'Accept': 'application/json', 'X-Challenger': '#(config.challengerToken)' }
   Given request
   """
   <todo>
@@ -20,7 +20,7 @@ Scenario: POST /todos XML to JSON
   And responseHeaders['Content-Type'] == 'application/json'
 
 Scenario: POST /todos JSON to XML
-  * configure headers = { 'Content-Type': 'application/json', 'Accept': 'application/xml', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Content-Type': 'application/json', 'Accept': 'application/xml', 'X-Challenger': '#(config.challengerToken)' }
   Given request
   """
   {

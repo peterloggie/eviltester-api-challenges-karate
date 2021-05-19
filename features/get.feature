@@ -1,9 +1,8 @@
 Feature: GET Challenges
 
 Background:
-  * url 'http://apichallenges.herokuapp.com'
-  * def setup = callonce read('./shared/set-headers.feature')
-  * configure headers = setup.headers
+  * url baseURL
+  * configure headers = headers
 
 Scenario: GET /challenges
   Given path 'challenges'

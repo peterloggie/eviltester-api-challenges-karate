@@ -31,3 +31,19 @@ The folder structure is quite simple. In the root, we just have this README and 
 - `/features`: this is where we store all of the test scripts (feature files)
 - `/features/shared`: the feature files in this folder aren't actually tests (hence why the features have the `@ignore` tag applied - they aren't run by themselves). These features contain common routines that can be called by other feature files. We use one such feature to set headers using common code, rather than repeating this code in every feature file that requires the functionality.
 - `/helpers`: there are occasions when you might need to rely on regular code to achieve things. The `helpers` folder contains Javascript functions that our test scripts can call. For example, we have a Javascript function defined that creates the encoded string required for basic authentication.
+
+# Changelog
+
+## First commit
+
+Lots of feature files, and there's some use of shared functions, but there are a couple of things I don't like:
+
+1. The X-Challenger header is calculated for each feature, which means we can't run all the tests and then just load the [online report](https://apichallenges.herokuapp.com/gui/challenges/) to get a view of our complete progress. So we want to get the X-Challenger token only once, and use it for ALL feature files.
+1. Every feature file repeats the URL. For a start, we don't really want to repeat this URL. Additionally, often a test codebase like this would be run against different environments, and the base URL would change depending on the environment. Ideally, we want to define it outside of the feature files.
+
+We can fix these issues by including a Karate config file...
+
+## Second commit
+
+You don't need a [config file](https://github.com/intuit/karate#configuration) for Karate to work, but including one can improve things.
+

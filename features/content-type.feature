@@ -1,12 +1,12 @@
 Feature: 'Accept' Challenges
 
 Background:
-  * url 'http://apichallenges.herokuapp.com'
+  * url baseURL
   * def setup = callonce read('./shared/set-headers.feature')
   Given path 'todos'
 
 Scenario: POST /todos XML
-  * configure headers = { 'Content-Type': 'application/xml', 'Accept': 'application/xml', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Content-Type': 'application/xml', 'Accept': 'application/xml', 'X-Challenger': '#(token)' }
   Given request
   """
   <todo>
@@ -19,7 +19,7 @@ Scenario: POST /todos XML
   Then status 201
 
 Scenario: POST /todos JSON
-  * configure headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-Challenger': '#(token)' }
   Given request
   """
   {
@@ -32,7 +32,7 @@ Scenario: POST /todos JSON
   Then status 201
 
 Scenario: POST /todos (415)
-  * configure headers = { 'Content-Type': 'application/gzip', 'Accept': '*/*', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Content-Type': 'application/gzip', 'Accept': '*/*', 'X-Challenger': '#(token)' }
   Given request
   """
   {

@@ -1,8 +1,7 @@
 Feature: 'Accept' Challenges
 
 Background:
-  * url 'http://apichallenges.herokuapp.com'
-  * def setup = callonce read('./shared/set-headers.feature')
+  * url baseURL
   # curiously, XML Schemas are described using JSON objects in Karate
   * def XMLSchema =
   """
@@ -25,7 +24,7 @@ Background:
   """
 
 Scenario: GET /todos (200) XML
-  * configure headers = { 'Accept': 'application/xml', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Accept': 'application/xml', 'X-Challenger': '#(token)' }
   Given path 'todos'
   When method get
   * xml todosList = get response // todos
@@ -33,21 +32,21 @@ Scenario: GET /todos (200) XML
   And match each todosList.todos.todo == XMLSchema
 
 Scenario: GET /todos (200) JSON
-  * configure headers = { 'Accept': 'application/json', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Accept': 'application/json', 'X-Challenger': '#(token)' }
   Given path 'todos'
   When method get
   Then status 200
   Then match each response.todos == JSONSchema
 
 Scenario: GET /todos (200) ANY
-  * configure headers = { 'Accept': '*/*', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Accept': '*/*', 'X-Challenger': '#(token)' }
   Given path 'todos'
   When method get
   Then status 200
   Then match each response.todos == JSONSchema
 
 Scenario: GET /todos (200) XML pref
-  * configure headers = { 'Accept': 'application/xml, application/json', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Accept': 'application/xml, application/json', 'X-Challenger': '#(token)' }
   Given path 'todos'
   When method get
   Then status 200
@@ -55,14 +54,14 @@ Scenario: GET /todos (200) XML pref
   And match each todosList.todos.todo == XMLSchema
 
 Scenario: GET /todos (200) no accept
-  * configure headers = { 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'X-Challenger': '#(token)' }
   Given path 'todos'
   When method get
   Then status 200
   And match each response.todos == JSONSchema
 
 Scenario: GET /todos (406)
-  * configure headers = { 'Accept': 'application/gzip', 'X-Challenger': '#(setup.token)' }
+  * configure headers = { 'Accept': 'application/gzip', 'X-Challenger': '#(token)' }
   Given path 'todos'
   When method get
   Then status 406

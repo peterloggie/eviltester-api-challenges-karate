@@ -1,9 +1,8 @@
 Feature: DELETE Challenges
 
 Background:
-  * url 'http://apichallenges.herokuapp.com'
-  * def setup = callonce read('./shared/set-headers.feature')
-  * configure headers = setup.headers
+  * url baseURL
+  * configure headers = headers
 
 Scenario: DELETE /todos/{id} 200
   # Create a todo
